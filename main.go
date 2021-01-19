@@ -1,6 +1,10 @@
 package main
 
-import "log"
+import (
+	"log"
+
+	"github.com/almerlucke/caldav/ical"
+)
 
 /*
 MKCOL, LOCK, GET, PUT, UNLOCK
@@ -18,11 +22,24 @@ MKCOL, LOCK, GET, PUT, UNLOCK
    "infinity" behaviors. By default, the PROPFIND method without a Depth
 	 header MUST act as if a "Depth: infinity" header was included.
 
-
+	property
 	 resource,
 	 collection (of resources)
 */
 
+type Resource struct {
+	Properties map[string]interface{}
+}
+
 func main() {
-	log.Printf("check")
+	l := "test this check it out man, this is some great shit right here"
+	ls := ical.FoldContentLine(l, 10)
+
+	for _, s := range ls {
+		log.Printf("%v", s)
+	}
+
+	l = ical.UnfoldContentLines(ls)
+
+	log.Printf("unfolded: %v", l)
 }
